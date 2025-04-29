@@ -1,8 +1,6 @@
-# ail-typo-website
+# This is a fork!
 
-Website for [ail-typo-squatting](https://github.com/typosquatter/ail-typo-squatting) library. This website is strongly inspired by [dnstwist website](https://dnstwist.it).
-
-![typo-website](https://github.com/ail-project/ail-typo-website/blob/main/doc/typo-website.png?raw=true)
+Forked from [ail-typo-squatting](https://github.com/typosquatter/ail-typo-squatting) library.
 
 ## Requirements
 
@@ -19,13 +17,31 @@ Website for [ail-typo-squatting](https://github.com/typosquatter/ail-typo-squatt
 - [nltk](https://github.com/nltk/nltk)
 - [scikit-learn](https://github.com/scikit-learn/scikit-learn)
 
-## How to run
+## How to install and run
 
-The main script to run is `Flask_server.py`, but you might start with:
+1. Install dependencies `pip install -r requirements.txt`
 
-- Fill `conf/conf.cfg`
-- If you want to have some [misp-warninglists](https://github.com/MISP/misp-warninglists)
-  - run  `external_script/warning_list/generate_warning_list.py`
+2. Update configs
+   Copy `conf/conf.cfg.sample` to ``conf/conf.cfg`.
+
+3. Install Redis locally and run it
+   `brew install redis &  brew services start redis`
+
+4. Run it (make sure your Redis is still running)
+   `python Flask_server.py`
+
+## Known issues
+
+There are a few algorithm that requires additional dictionaries that aren't supported out of the box yet.
+
+Including `CommonMisspelling`, `Homoglyph` and `Homophones`. We need to find our own dictionaries for it.
+
+For `WrongTld`, you can download TLD file from the official IANA website by doing this.
+```
+curl -o tlds-alpha-by-domain.txt https://data.iana.org/TLD/tlds-alpha-by-domain.txt
+mkdir -p /usr/local/lib/python3.11/site-packages/etc
+mv tlds-alpha-by-domain.txt /usr/local/lib/python3.11/site-packages/etc/
+```
 
 ## Choice of algorithm
 
